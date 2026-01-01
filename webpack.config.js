@@ -38,7 +38,7 @@ module.exports = (env = {}) => {
 
 		output: {
 			filename: "bundle.js",
-			path: path.join(__dirname, "build"),
+			path: path.join(__dirname, "docs"),
 			chunkFormat: false,
 		},
 
