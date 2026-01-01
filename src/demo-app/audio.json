@@ -1,0 +1,18 @@
+{
+	"toneAudioConfig": true,
+	"masterVolume": -6,
+	"sources": {
+		"blop": {
+			"url": "audio/blop.m4a"
+		},
+		"click": {
+			"url": "audio/click.m4a"
+		},
+		"swish": {
+			"url": "audio/swish.m4a"
+		},
+		"card_flap": {
+			"url": "audio/card_flap.m4a"
+		}
+	}
+}

@@ -1,0 +1,128 @@
+{
+	"lifetime": {
+		"min": 0.1,
+		"max": 0.75
+	},
+	"frequency": 0.002,
+	"pos": {
+		"x": 0,
+		"y": 0
+	},
+	"spawnChance": 0.05,
+	"emitterLifetime": 0,
+	"maxParticles": 5,
+	"particlesPerWave": 1,
+	"addAtBack": false,
+	"ease": [
+		{
+			"s": 0,
+			"cp": 0.379,
+			"e": 0.548
+		},
+		{
+			"s": 0.548,
+			"cp": 0.717,
+			"e": 0.676
+		},
+		{
+			"s": 0.676,
+			"cp": 0.635,
+			"e": 1
+		}
+	],
+	"behaviors": [
+		{
+			"type": "spawnShape",
+			"config": {
+				"type": "rect",
+				"data": {
+					"x": -80,
+					"y": 40,
+					"w": 160,
+					"h": 40
+				}
+			}
+		},
+		{
+			"type": "moveSpeedStatic",
+			"config": {
+				"min": 500,
+				"max": 1000
+			}
+		},
+		{
+			"type": "moveAcceleration",
+			"config": {
+				"minStart": 50,
+				"maxStart": 50,
+				"accel": {
+					"x": 0,
+					"y": -50
+				},
+				"rotate": true,
+				"maxSpeed": 0
+			}
+		},
+		{
+			"type": "scale",
+			"config": {
+				"scale": {
+					"list": [
+						{
+							"time": 0,
+							"value": 0
+						},
+						{
+							"time": 1,
+							"value": 1.25
+						}
+					],
+					"isStepped": false
+				},
+				"minMult": 1
+			}
+		},
+		{
+			"type": "alpha",
+			"config": {
+				"alpha": {
+					"list": [
+						{
+							"time": 0,
+							"value": 2
+						},
+						{
+							"time": 1,
+							"value": 0
+						}
+					],
+					"isStepped": false
+				}
+			}
+		},
+		{
+			"type": "color",
+			"config": {
+				"color": {
+					"list": [
+						{
+							"value": "#fff191",
+							"time": 0
+						},
+						{
+							"value": "#ff622c",
+							"time": 1
+						}
+					]
+				}
+			}
+		},
+		{
+			"type": "rotationStatic",
+			"config": {
+				"min": 265,
+				"max": 275
+			}
+		}
+	]
+}

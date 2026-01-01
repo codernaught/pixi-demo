@@ -1,0 +1,64 @@
+{
+	"name": "pixi-demo",
+	"version": "0.0.0",
+	"scripts": {
+		"start": "npm run serve-modern",
+		"test": "npx --no-install jest",
+		"test-watch": "npm run test -- --watch",
+		"serve": "npx --no-install webpack-dev-server",
+		"serve-modern": "npm run serve -- --env modern",
+		"serve-prod": "npm run serve -- --env  prod",
+		"build-dev": "npx --no-install webpack",
+		"build": "npm run build-dev -- --env prod",
+		"lint": "npx --no-install eslint .",
+		"lint:fix": "npx --no-install eslint . --fix",
+		"prettier": "npx --no-install prettier src/**/*.ts",
+		"prettier:fix": "npx --no-install prettier src/**/*.ts --write"
+	},
+	"prettier": {
+		"printWidth": 140,
+		"endOfLine": "auto",
+		"useTabs": true
+	},
+	"dependencies": {
+		"@esotericsoftware/spine-pixi-v8": "^4.2.96",
+		"@spd789562/particle-emitter": "^1.0.2",
+		"@types/createjs": "0.0.32",
+		"@types/lodash-es": "^4.17.12",
+		"core-js": "^3.47.0",
+		"lodash-es": "^4.17.21",
+		"pixi.js": "^8.14.3",
+		"screenfull": "^5.0.2",
+		"tone": "^15.1.22",
+		"tslib": "^2.8.1",
+		"tweenjs": "^1.0.2"
+	},
+	"devDependencies": {
+		"@tonejs/midi": "^2.0.28",
+		"@types/jest": "^30.0.0",
+		"copy-webpack-plugin": "^13.0.1",
+		"css-loader": "7.1.2",
+		"eslint": "^9.39.1",
+		"eslint-config-prettier": "^10.1.8",
+		"html-webpack-plugin": "^5.6.5",
+		"imports-loader": "^5.0.0",
+		"jest": "^30.2.0",
+		"prettier": "^3.7.4",
+		"style-loader": "4.0.0",
+		"ts-jest": "^29.4.6",
+		"ts-loader": "^9.5.4",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.48.1",
+		"webpack": "^5.103.0",
+		"webpack-cli": "^6.0.1",
+		"webpack-dev-server": "^5.2.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/codernaught/pixi-demo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/codernaught/pixi-demo/issues"
+	},
+	"homepage": "https://github.com/codernaught/pixi-demo#readme"
+}
