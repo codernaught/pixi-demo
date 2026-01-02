@@ -38,7 +38,7 @@ async function start() {
 		// In a real app you'd want a proper UI button for this.
 		// This also won't work on iOS Safari due to their restrictions around fullscreen.
 		// For that you need to do some workarounds with scrolling and viewport sizing.
-		window.document.body.onpointerdown = () => app.requestFullscreen();
+		window.document.body.onclick = () => app.requestFullscreen();
 
 		// Add the app canvas to the DOM.
 		window.document.body.appendChild(app.canvas);
