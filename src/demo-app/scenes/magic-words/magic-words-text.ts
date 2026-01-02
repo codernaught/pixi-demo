@@ -4,7 +4,7 @@ import { DEFAULT_TEXT_STYLE } from "../../constants";
 import { DemoApp } from "../../demo-app";
 import { AvatarPosition, MagicWordsAvatarData, MagicWordsDialogueEntry, MagicWordsEmojiData } from "./fetch-magic-words";
 
-const TEXT_WIDTH_PERCENTAGE = 0.5;
+const TEXT_WIDTH_PERCENTAGE = 0.4;
 const TEXT_MAX_WIDTH = 900;
 
 const BUBBLE_Y_PIVOT = 64;

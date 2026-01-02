@@ -30,7 +30,7 @@ export class DemoApp extends AppBase {
 			// 4K 16:9 reference resolution
 			width: 4096,
 			height: 2160,
-			blend: 1,
+			blend: 0.5,
 			resolutionBreakpoints: [
 				// Approximate breakpoints still need refinement and testing on real devices
 				{ maxSideSizeThreshold: 0, resolution: 1 },

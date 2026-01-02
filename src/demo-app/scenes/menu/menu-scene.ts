@@ -19,8 +19,8 @@ export class MenuScene extends Scene<DemoApp> {
 	private readonly sceneButtons: UiTextButton[] = [];
 
 	private readonly titleText = new PIXI.Text({
-		text: "Select a Scene",
-		style: { ...DEFAULT_TEXT_STYLE, ...{ fontSize: 148 } },
+		text: "Select Scene",
+		style: { ...DEFAULT_TEXT_STYLE, ...{ fontSize: 128 } },
 	});
 
 	protected handleInit() {
