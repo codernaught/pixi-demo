@@ -6,6 +6,8 @@ import { DEFAULT_TEXT_STYLE } from "../../constants";
 import { DemoApp } from "../../demo-app";
 import { SceneKey } from "../../scene-key";
 
+const BUTTON_SPACING = 240;
+
 // Create buttons for each scene (excluding Menu itself)
 const SCENE_BUTTONS: ReadonlyArray<{ readonly key: SceneKey; readonly label: string }> = [
 	{ key: SceneKey.AceOfShadows, label: "Ace of Shadows" },
@@ -18,7 +20,7 @@ export class MenuScene extends Scene<DemoApp> {
 
 	private readonly titleText = new PIXI.Text({
 		text: "Select a Scene",
-		style: DEFAULT_TEXT_STYLE,
+		style: { ...DEFAULT_TEXT_STYLE, ...{ fontSize: 148 } },
 	});
 
 	protected handleInit() {
@@ -31,7 +33,7 @@ export class MenuScene extends Scene<DemoApp> {
 				text: scene.label,
 				textureUp: PIXI.Texture.WHITE,
 				textureDown: PIXI.Texture.WHITE,
-				textStyle: { ...DEFAULT_TEXT_STYLE, ...{ fontSize: 48 } },
+				textStyle: { ...DEFAULT_TEXT_STYLE, ...{ fontSize: 96 } },
 			});
 
 			button.on("pointertap", () => {
@@ -48,12 +50,11 @@ export class MenuScene extends Scene<DemoApp> {
 		this.titleText.position.set(0, -height * 0.3);
 
 		// Position buttons vertically in the center
-		const buttonSpacing = 160;
-		const totalHeight = (this.sceneButtons.length - 1) * buttonSpacing;
+		const totalHeight = (this.sceneButtons.length - 1) * BUTTON_SPACING;
 		const startY = -totalHeight / 2;
 
 		this.sceneButtons.forEach((button, index) => {
-			button.position.set(0, startY + index * buttonSpacing);
+			button.position.set(0, startY + index * BUTTON_SPACING);
 		});
 	}
 }
