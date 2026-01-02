@@ -5,7 +5,7 @@ import { UiTextButton } from "../../common/ui/ui-text-button";
 import { DEFAULT_TEXT_STYLE } from "../constants";
 import { DemoApp } from "../demo-app";
 
-const BUTTON_PADDING = 32;
+const BUTTON_PADDING = 128;
 
 export interface DemoAppHudOptions {
 	/** Callback function to be called when the back button is pressed */
@@ -29,7 +29,7 @@ export class DemoAppHUD extends GameObject<DemoApp> {
 			textureDown: PIXI.Texture.WHITE,
 			textStyle: {
 				...DEFAULT_TEXT_STYLE,
-				...{ fontSize: 48 },
+				...{ fontSize: 64 },
 			},
 		});
 
