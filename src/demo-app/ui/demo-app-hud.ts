@@ -29,7 +29,7 @@ export class DemoAppHUD extends GameObject<DemoApp> {
 			textureDown: PIXI.Texture.WHITE,
 			textStyle: {
 				...DEFAULT_TEXT_STYLE,
-				...{ fontSize: 64 },
+				...{ fontSize: 96 },
 			},
 		});
 
