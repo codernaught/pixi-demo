@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
-import { DemoApp } from "../../demo-app";
 import { GameObject } from "../../../common/game-object";
+import { DemoApp } from "../../demo-app";
 import { CARD_FRAME_IDS } from "./constants";
 
 /**
@@ -11,7 +11,7 @@ import { CARD_FRAME_IDS } from "./constants";
 export class CardSprite extends GameObject<DemoApp> {
 	private static readonly CARD_SCALE_COMPENSATION = 8;
 
-	private cardSprite: PIXI.Sprite;
+	private readonly cardSprite: PIXI.Sprite;
 
 	constructor(
 		app: DemoApp,

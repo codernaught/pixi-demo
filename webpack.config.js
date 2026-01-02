@@ -38,6 +38,7 @@ module.exports = (env = {}) => {
 
 		output: {
 			filename: "bundle.js",
+			// build directory named "docs" for GitHub Pages compatibility
 			path: path.join(__dirname, "docs"),
 			chunkFormat: false,
 		},

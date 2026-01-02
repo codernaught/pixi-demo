@@ -32,7 +32,7 @@ export class CardsController {
 
 	private moveDirection: CardMoveDirection = CardMoveDirection.ToStack2;
 
-	private allCards: CardData[] = [];
+	private readonly allCards: CardData[] = [];
 	private stack1: CardData[] = [];
 	private stack2: CardData[] = [];
 

@@ -6,8 +6,6 @@ import type { Dict } from "./types";
 import { TypedEmitter } from "./typed-emitter";
 
 const CENTER_NOTE = "A3";
-const MAX_QUEUE = 64;
-const BUFFER_TIME = 3;
 
 export interface NoteJSON {
 	time: number;
@@ -107,8 +105,6 @@ export class ToneAudio {
 
 	private samplers: Dict<Tone.Sampler> = {};
 	private sources: Dict<SourceEntry> = {};
-	private currentMidiPlayback?: MidiPlaybackData;
-	private currentMidiData?: Midi;
 	private config!: ToneAudioConfig;
 
 	public async init(config: ToneAudioConfig) {
@@ -129,10 +125,6 @@ export class ToneAudio {
 	public update() {
 		if (!document.hasFocus() || Tone.getContext().state !== "running") {
 			return;
-		}
-
-		if (this.currentMidiPlayback) {
-			this.updateMusic(this.currentMidiPlayback);
 		}
 	}
 
@@ -202,85 +194,6 @@ export class ToneAudio {
 			case "release":
 				sampler.triggerRelease(note, time);
 				break;
-		}
-	}
-
-	public async playMidi(url: string) {
-		if (this.currentMidiData) {
-			return;
-		}
-
-		const midi = await Midi.fromUrl(url);
-
-		this.currentMidiData = midi;
-
-		this.currentMidiPlayback = {
-			duration: midi.duration,
-			start: Tone.now() + 0.5,
-			tracks: midi.tracks.map((el) => {
-				return {
-					name: el.name,
-					original: [...el.notes],
-					notes: [...el.notes],
-					loops: 0,
-				};
-			}),
-		};
-
-		this.onMidiStarted.emit({ midi });
-	}
-
-	private updateMusic(midi: MidiPlaybackData) {
-		const { tracks, start, duration } = midi;
-
-		const now = Tone.now();
-
-		for (let i = 0; i < tracks.length; i++) {
-			const track = tracks[i];
-
-			let totalQueued = 0;
-
-			const sampler = this.samplers[track.name];
-
-			if (track.notes.length === 0) continue;
-
-			while (track.notes[0].time + start + duration * track.loops < now + BUFFER_TIME) {
-				const note = track.notes.shift();
-
-				if (!note) break;
-
-				// Loop note array.
-				if (track.notes.length === 0) {
-					track.notes = track.notes.concat(track.original);
-					track.loops++;
-				}
-
-				// Skip past notes.
-				if (note.time + start + duration * track.loops < now) {
-					continue;
-				}
-
-				// Skip too many notes.
-				if (totalQueued > MAX_QUEUE) {
-					continue;
-				}
-
-				totalQueued++;
-
-				const loopOffset = duration * track.loops;
-
-				try {
-					sampler.triggerAttackRelease(note.name, note.duration, note.time + start + loopOffset, note.velocity * 0.333);
-				} catch (err) {
-					console.error(err);
-				} finally {
-					this.onNoteScheduled.emit({
-						absoluteScheduledTime: note.time + loopOffset + start,
-						trackName: track.name,
-						noteData: note,
-					});
-				}
-			}
 		}
 	}
 }

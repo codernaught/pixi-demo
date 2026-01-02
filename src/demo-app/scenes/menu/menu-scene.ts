@@ -6,27 +6,27 @@ import { DEFAULT_TEXT_STYLE } from "../../constants";
 import { DemoApp } from "../../demo-app";
 import { SceneKey } from "../../scene-key";
 
-export class MenuScene extends Scene<DemoApp> {
-	private sceneButtons: UiTextButton[] = [];
-	private titleText!: PIXI.Text;
+// Create buttons for each scene (excluding Menu itself)
+const SCENE_BUTTONS: ReadonlyArray<{ readonly key: SceneKey; readonly label: string }> = [
+	{ key: SceneKey.AceOfShadows, label: "Ace of Shadows" },
+	{ key: SceneKey.MagicWords, label: "Magic Words" },
+	{ key: SceneKey.PhoenixFlame, label: "Phoenix Flame" },
+];
 
-	handleInit() {
+export class MenuScene extends Scene<DemoApp> {
+	private readonly sceneButtons: UiTextButton[] = [];
+
+	private readonly titleText = new PIXI.Text({
+		text: "Select a Scene",
+		style: DEFAULT_TEXT_STYLE,
+	});
+
+	protected handleInit() {
 		// Create title
-		this.titleText = new PIXI.Text({
-			text: "Select a Scene",
-			style: DEFAULT_TEXT_STYLE,
-		});
 		this.titleText.anchor.set(0.5);
 		this.addChild(this.titleText);
 
-		// Create buttons for each scene (excluding Menu itself)
-		const sceneButtons: Array<{ key: SceneKey; label: string }> = [
-			{ key: SceneKey.AceOfShadows, label: "Ace of Shadows" },
-			{ key: SceneKey.MagicWords, label: "Magic Words" },
-			{ key: SceneKey.PhoenixFlame, label: "Phoenix Flame" },
-		];
-
-		sceneButtons.forEach((scene) => {
+		SCENE_BUTTONS.forEach((scene) => {
 			const button = new UiTextButton(this.app, {
 				text: scene.label,
 				textureUp: PIXI.Texture.WHITE,
@@ -43,7 +43,7 @@ export class MenuScene extends Scene<DemoApp> {
 		});
 	}
 
-	handleResize({ height }: ResizeEventData) {
+	protected handleResize({ height }: ResizeEventData) {
 		// Position title at the top
 		this.titleText.position.set(0, -height * 0.3);
 

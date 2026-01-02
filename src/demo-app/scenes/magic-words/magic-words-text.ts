@@ -6,27 +6,33 @@ import { AvatarPosition, MagicWordsAvatarData, MagicWordsDialogueEntry, MagicWor
 
 const TEXT_WIDTH_PERCENTAGE = 0.5;
 const TEXT_MAX_WIDTH = 900;
+
 const BUBBLE_Y_PIVOT = 64;
 const BUBBLE_PADDING_X = 32;
 const BUBBLE_PADDING_Y = 32;
 
-export type MagicWordsTextEmojiData = { asset: PIXI.Texture };
+export type MagicWordsTextEmojiData = {
+	asset: PIXI.Texture;
+};
 
-export type MagicWordsTextAvatarData = { avatarData: MagicWordsAvatarData; asset: PIXI.Texture };
+export type MagicWordsTextAvatarData = {
+	avatarData: MagicWordsAvatarData;
+	asset: PIXI.Texture;
+};
 
 export class MagicWordsText extends GameObject<DemoApp> {
-	private emojiDataMap: Map<string, MagicWordsTextEmojiData> = new Map();
-	private avatarDataMap: Map<string, MagicWordsTextAvatarData> = new Map();
-
-	private textBubble = new PIXI.Graphics();
-
 	private wrapWidth: number = 800;
 
 	private avatarPosition: AvatarPosition = "left";
 
-	private avatarSprite = new PIXI.Sprite();
+	private readonly emojiDataMap: Map<string, MagicWordsTextEmojiData> = new Map();
+	private readonly avatarDataMap: Map<string, MagicWordsTextAvatarData> = new Map();
 
-	private textDisplay = new PIXI.SplitBitmapText({
+	private readonly textBubble = new PIXI.Graphics();
+
+	private readonly avatarSprite = new PIXI.Sprite();
+
+	private readonly textDisplay = new PIXI.SplitBitmapText({
 		// Split text error when setting to empty string, so use underscore as placeholder
 		text: "_",
 		style: {
@@ -41,13 +47,14 @@ export class MagicWordsText extends GameObject<DemoApp> {
 		},
 	});
 
-	protected handleInit(): void {
-		this.addChild(this.textBubble);
-		this.addChild(this.textDisplay);
-		this.addChild(this.avatarSprite);
-	}
-
+	/**
+	 * Requires avatars to be preloaded via PIXI.Assets before calling
+	 *
+	 * @param avatarData - Array of avatar data to register
+	 */
 	public registerAvatars(avatarData: MagicWordsAvatarData[]) {
+		this.avatarDataMap.clear();
+
 		avatarData.forEach((avatar) => {
 			this.avatarDataMap.set(avatar.name, {
 				avatarData: avatar,
@@ -56,7 +63,14 @@ export class MagicWordsText extends GameObject<DemoApp> {
 		});
 	}
 
+	/**
+	 * Requires avatars to be preloaded via PIXI.Assets before calling
+	 *
+	 * @param emojiData - Array of emoji data to register
+	 */
 	public registerEmojis(emojiData: MagicWordsEmojiData[]) {
+		this.emojiDataMap.clear();
+
 		emojiData.forEach((emoji) => {
 			this.emojiDataMap.set(emoji.name, {
 				asset: PIXI.Assets.get(emoji.name),
@@ -64,6 +78,10 @@ export class MagicWordsText extends GameObject<DemoApp> {
 		});
 	}
 
+	/**
+	 * Generating a bitmap font atlas with custom glyphs would be a more elegant solution
+	 * than inserting sprites into words, but this is outside the scope of this demo.
+	 */
 	public async displayText(dialogue: MagicWordsDialogueEntry) {
 		this.wrapWidth = Math.min(this.app.width * TEXT_WIDTH_PERCENTAGE, TEXT_MAX_WIDTH);
 		this.textDisplay.pivot.x = this.wrapWidth / 2;
@@ -107,6 +125,9 @@ export class MagicWordsText extends GameObject<DemoApp> {
 			this.avatarSprite.texture = texture;
 			this.avatarPosition = avatarData.avatarData.position;
 			this.updateAvatarPosition();
+		} else {
+			console.warn(`No avatar data found for name: ${dialogue.name}`);
+			this.avatarSprite.texture = PIXI.Texture.EMPTY;
 		}
 
 		for (let i = 0; i < this.textDisplay.words.length; i++) {
@@ -122,6 +143,17 @@ export class MagicWordsText extends GameObject<DemoApp> {
 			this.app.audio.play("click", { volume: 0.5 });
 			word.alpha = 1;
 		}
+	}
+
+	protected handleInit(): void {
+		this.addChild(this.textBubble);
+		this.addChild(this.textDisplay);
+		this.addChild(this.avatarSprite);
+	}
+
+	protected async handleUnload() {
+		// Ensure dynamic bitmap font texture sources are destroyed
+		PIXI.Assets.unload(`${this.textDisplay.style.fontFamily}-bitmap`);
 	}
 
 	private updateAvatarPosition() {

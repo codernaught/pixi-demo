@@ -12,17 +12,24 @@ import { ANIMATION_DURATION, DECK_STACKING_OFFSET } from "./constants";
 
 const CARDS_ATLAS_PATH = "textures/cards";
 
+/**
+ * Scene that shows a simple card stacking and moving interaction.
+ *
+ * Potential optimisations:
+ * - Preload assets before scene load.
+ * - Cache the loaded assets between scene loads depending on overall app asset demands.
+ */
 export class AceOfShadowsScene extends Scene<DemoApp> {
-	private hud = new DemoAppHUD(this.app, {
+	private readonly hud = new DemoAppHUD(this.app, {
 		onBackButtonPressed: () => this.app.showScene(SceneKey.Menu),
 	});
 
-	private cardsController = new CardsController();
+	private readonly cardsController = new CardsController();
 
-	private cardSprites = new Map<number, CardSprite>();
+	private readonly cardSprites = new Map<number, CardSprite>();
 
-	private stack1Container = new PIXI.Container();
-	private stack2Container = new PIXI.Container();
+	private readonly stack1Container = new PIXI.Container();
+	private readonly stack2Container = new PIXI.Container();
 
 	/**
 	 * Get the local position of a card in a deck based on its index in the stack.
@@ -91,6 +98,7 @@ export class AceOfShadowsScene extends Scene<DemoApp> {
 		}
 	}
 
+	/** Somewhat naive handling of card move event with animation implementation for demo purposes */
 	private handleCardMove(event: CardMoveEvent) {
 		const sprite = this.cardSprites.get(event.cardData.index);
 		if (!sprite) return;

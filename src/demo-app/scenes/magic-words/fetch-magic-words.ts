@@ -58,6 +58,9 @@ export async function fetchMagicWords(): Promise<MagicWordsResponse> {
 		if (error instanceof Error) {
 			throw new Error(`Error fetching magic words: ${error.message}`);
 		}
+		if (typeof error === "string") {
+			throw new Error(`Error fetching magic words: ${error}`);
+		}
 		throw new Error("Unknown error fetching magic words");
 	}
 }

@@ -5,9 +5,9 @@ import "../libs/tween-group";
 createjs.Ticker.timingMode = createjs.Ticker.RAF;
 createjs.Ticker.maxDelta = 100;
 
+import * as audioManifest from "./demo-app/audio-manifest.json";
 import { DemoApp } from "./demo-app/demo-app";
 import { SceneKey } from "./demo-app/scene-key";
-import * as audioManifest from "./demo-app/audio.json";
 
 async function start() {
 	setWindowStyle();

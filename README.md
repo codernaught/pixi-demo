@@ -1,11 +1,13 @@
 # pixi-demo
 
+### [Live Link](https://codernaught.github.io/pixi-demo/)
+
 ## Getting Started
 
 ### Installation
 
 ```bash
-npm install
+npm i
 ```
 
 ## Build Commands
@@ -43,7 +45,7 @@ When running the development server, the application will be available at:
 
 ## Build Output
 
-Production builds are output to the `build/` directory and include:
+Production builds are output to the `docs/` (for Github pages compatibility) directory and include:
 
 - Optimized JavaScript bundle
 - Source maps for debugging

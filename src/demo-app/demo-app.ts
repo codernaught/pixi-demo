@@ -12,7 +12,8 @@ import { PhoenixFlameScene } from "./scenes/phoenix-flame/phoenix-flame-scene";
  * Expands on the base app class with a basic scene management system.
  *
  * This scene system would ideally be more fully featured in a real app,
- * with proper scene transitions, loading, and unloading of assets.
+ * with proper scene transitions, loading, and unloading of assets via
+ * scene configuration data rather than per-scene implementation.
  */
 export class DemoApp extends AppBase {
 	public scenes: { [key in SceneKey]: typeof Scene<DemoApp> } = {

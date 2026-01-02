@@ -10,19 +10,21 @@ const DIALOGUE_MIN_DELAY = 1500;
 const DIALOGUE_DELAY_PER_WORD = 200;
 
 /**
+ * Scene that showcases a dynamic text display with custom emojis and avatars loaded from an external source.
+ *
  * Potential optimisations:
  *
  * - Generate a texture atlas for avatar textures which are brought in dynamically.
- * - Generate a dynamic bitmap which includes custom emoji glyphs.
+ * - Generate a dynamic bitmap font atlas which includes custom emoji glyphs.
  * - Preload assets before scene load.
  * - Cache the fetched data between scene loads.
  */
 export class MagicWordsScene extends Scene<DemoApp> {
-	private hud = new DemoAppHUD(this.app, {
+	private readonly hud = new DemoAppHUD(this.app, {
 		onBackButtonPressed: () => this.app.showScene(SceneKey.Menu),
 	});
 
-	private magicWordsText = new MagicWordsText(this.app);
+	private readonly magicWordsText = new MagicWordsText(this.app);
 
 	private cachedMagicWordsResponse?: MagicWordsResponse;
 
