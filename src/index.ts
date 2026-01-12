@@ -9,6 +9,7 @@ import * as audioManifest from "./demo-app/audio-manifest.json";
 import { DemoApp } from "./demo-app/demo-app";
 import { SceneKey } from "./demo-app/scene-key";
 
+
 async function start() {
 	setWindowStyle();
 
