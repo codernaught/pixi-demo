@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/judgement.jpg" alt="Judgement">
+</p>
+
 # pixi-demo
 
 ### [Live Link](https://codernaught.github.io/pixi-demo/)
