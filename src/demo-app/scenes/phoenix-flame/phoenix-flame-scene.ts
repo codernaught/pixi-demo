@@ -121,6 +121,10 @@ export class PhoenixFlameScene extends Scene<DemoApp> {
 	protected async handleUnload() {
 		this.ambiencePlayer.dispose();
 
+		this.flameEmitter?.destroy();
+		this.lightEmitter?.destroy();
+		this.smokeEmitter?.destroy();
+
 		await PIXI.Assets.unload(ATLAS_PATH);
 	}
 }
